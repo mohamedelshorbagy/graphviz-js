@@ -1,7 +1,7 @@
 import LinkedList from '../linked-list/linkedlist';
 import { utils } from '../utils';
-import Square from '../vizualization/square';
-import Circle from '../vizualization/circle';
+import { Square, Circle } from '../vizualization/shapes';
+// import Circle from '../vizualization/circle';
 
 export default class GraphVertex {
     /**

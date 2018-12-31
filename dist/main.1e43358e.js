@@ -853,13 +853,25 @@ function () {
 }();
 
 exports.default = LinkedList;
-},{"./node":"src/linked-list/node.js","../utils":"src/utils.js"}],"src/vizualization/square.js":[function(require,module,exports) {
+},{"./node":"src/linked-list/node.js","../utils":"src/utils.js"}],"src/vizualization/shapes.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.Square = exports.Circle = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -867,57 +879,70 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Square =
+// export default class Circle {
+//     constructor(context, cx, cy, r, text) {
+//         this.x = cx;
+//         this.y = cy;
+//         this.r = r;
+//         this.context = context;
+//         this.center = {
+//             x: this.x,
+//             y: this.y
+//         }
+//         this.edges = {
+//             top: {
+//                 x: cx,
+//                 y: cy - r
+//             },
+//             left: {
+//                 x: cx - r,
+//                 y: cy
+//             },
+//             right: {
+//                 x: cx + r,
+//                 y: cy
+//             },
+//             bottom: {
+//                 x: cx,
+//                 y: cy + r
+//             }
+//         }
+//         this.text = text || '';
+//     }
+//     draw(color = 'rgb(42,220,113)', strokeCol = '#333') {
+//         // Draw Circle
+//         this.context.beginPath();
+//         this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+//         this.context.closePath();
+//         this.context.lineWidth = 1;
+//         this.context.strokeStyle = strokeCol
+//         this.context.stroke();
+//         // Draw Text inside Circle
+//         this.context.beginPath();
+//         this.context.font = '15px Arial';
+//         this.context.fillStyle = "black";
+//         this.context.textAlign = 'center';
+//         this.context.fillText("Const (2)", this.x, this.y);
+//         this.context.fill();
+//     }
+// }
+var Shape =
 /*#__PURE__*/
 function () {
-  function Square(context, x, y, l) {
-    var text = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
-
-    _classCallCheck(this, Square);
-
-    this.x = x;
-    this.y = y;
-    this.l = l; // width, height of Square
+  function Shape(context, x, y, l, text) {
+    _classCallCheck(this, Shape);
 
     this.ctx = context;
-    this.center = {
-      x: x + l / 2,
-      y: y + l / 2
-    };
-    this.edges = {
-      top: {
-        x: this.center.x,
-        y: this.center.y - l / 2
-      },
-      left: {
-        x: this.center.x - l / 2,
-        y: this.center.y
-      },
-      right: {
-        x: this.center.x + l / 2,
-        y: this.center.y
-      },
-      bottom: {
-        x: this.center.x,
-        y: this.center.y + l / 2
-      }
-    };
+    this.x = x;
+    this.y = y;
+    this.l = l;
     this.text = text;
   }
 
-  _createClass(Square, [{
-    key: "draw",
-    value: function draw() {
-      var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'rgb(42,220,113)';
-      var strokeCol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "#000";
-      // Draw Square
-      this.ctx.beginPath();
-      this.ctx.rect(this.x, this.y, this.l, this.l);
-      this.ctx.lineWidth = 1;
-      this.ctx.strokeStyle = strokeCol;
-      this.ctx.stroke();
-      this.ctx.closePath(); // Draw Text inside Shape
-
+  _createClass(Shape, [{
+    key: "drawText",
+    value: function drawText() {
+      // Draw Text inside Circle
       this.ctx.beginPath();
       this.ctx.font = '15px Arial';
       this.ctx.fillStyle = "black";
@@ -928,85 +953,120 @@ function () {
     }
   }]);
 
-  return Square;
+  return Shape;
 }();
-
-exports.default = Square;
-},{}],"src/vizualization/circle.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Circle =
 /*#__PURE__*/
-function () {
-  function Circle(context, cx, cy, r, text) {
+function (_Shape) {
+  _inherits(Circle, _Shape);
+
+  function Circle(context, x, y, r, text) {
+    var _this;
+
     _classCallCheck(this, Circle);
 
-    this.x = cx;
-    this.y = cy;
-    this.r = r;
-    this.context = context;
-    this.center = {
-      x: this.x,
-      y: this.y
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Circle).call(this, context, x, y, r, text));
+    _this.center = {
+      x: _this.x,
+      y: _this.y
     };
-    this.edges = {
+    _this.edges = {
       top: {
-        x: cx,
-        y: cy - r
+        x: _this.x,
+        y: _this.y - _this.l
       },
       left: {
-        x: cx - r,
-        y: cy
+        x: _this.x - _this.l,
+        y: _this.y
       },
       right: {
-        x: cx + r,
-        y: cy
+        x: _this.x + _this.l,
+        y: _this.y
       },
       bottom: {
-        x: cx,
-        y: cy + r
+        x: _this.x,
+        y: _this.y + _this.l
       }
     };
-    this.text = text || '';
+    return _this;
   }
 
   _createClass(Circle, [{
     key: "draw",
     value: function draw() {
       var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'rgb(42,220,113)';
-      var strokeCol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '#333';
-      // Draw Circle
-      this.context.beginPath();
-      this.context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-      this.context.closePath();
-      this.context.lineWidth = 1;
-      this.context.strokeStyle = strokeCol;
-      this.context.stroke(); // Draw Text inside Circle
-
-      this.context.beginPath();
-      this.context.font = '15px Arial';
-      this.context.fillStyle = "black";
-      this.context.textAlign = 'center';
-      this.context.fillText("Const (2)", this.x, this.y);
-      this.context.fill();
+      var strokeCol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "#000";
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.l, 0, 2 * Math.PI, false);
+      this.ctx.closePath();
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = strokeCol;
+      this.ctx.stroke();
+      this.drawText();
     }
   }]);
 
   return Circle;
-}();
+}(Shape);
 
-exports.default = Circle;
+exports.Circle = Circle;
+
+var Square =
+/*#__PURE__*/
+function (_Shape2) {
+  _inherits(Square, _Shape2);
+
+  function Square(context, x, y, l, text) {
+    var _this2;
+
+    _classCallCheck(this, Square);
+
+    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Square).call(this, context, x, y, l, text));
+    _this2.center = {
+      x: x + l / 2,
+      y: y + l / 2
+    };
+    _this2.edges = {
+      top: {
+        x: _this2.center.x,
+        y: _this2.center.y - l / 2
+      },
+      left: {
+        x: _this2.center.x - l / 2,
+        y: _this2.center.y
+      },
+      right: {
+        x: _this2.center.x + l / 2,
+        y: _this2.center.y
+      },
+      bottom: {
+        x: _this2.center.x,
+        y: _this2.center.y + l / 2
+      }
+    };
+    return _this2;
+  }
+
+  _createClass(Square, [{
+    key: "draw",
+    value: function draw() {
+      var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "rgb(42, 220, 113)";
+      var strokeCol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "#000";
+      this.ctx.beginPath();
+      this.ctx.rect(this.x, this.y, this.l, this.l);
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = strokeCol;
+      this.ctx.stroke();
+      this.ctx.closePath();
+      this.drawText();
+    }
+  }]);
+
+  return Square;
+}(Shape);
+
+exports.Square = Square;
 },{}],"src/graph/graphVertex.js":[function(require,module,exports) {
 "use strict";
 
@@ -1019,9 +1079,7 @@ var _linkedlist = _interopRequireDefault(require("../linked-list/linkedlist"));
 
 var _utils = require("../utils");
 
-var _square = _interopRequireDefault(require("../vizualization/square"));
-
-var _circle = _interopRequireDefault(require("../vizualization/circle"));
+var _shapes = require("../vizualization/shapes");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1031,6 +1089,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// import Circle from '../vizualization/circle';
 var GraphVertex =
 /*#__PURE__*/
 function () {
@@ -1075,9 +1134,9 @@ function () {
     this.type = type; // square , circle
 
     if (this.type === 'square') {
-      this.shape = new _square.default(context, x, y, l, this.text);
+      this.shape = new _shapes.Square(context, x, y, l, this.text);
     } else {
-      this.shape = new _circle.default(context, x, y, l / 2, this.text);
+      this.shape = new _shapes.Circle(context, x, y, l / 2, this.text);
     }
   }
   /**
@@ -1265,7 +1324,7 @@ function () {
 }();
 
 exports.default = GraphVertex;
-},{"../linked-list/linkedlist":"src/linked-list/linkedlist.js","../utils":"src/utils.js","../vizualization/square":"src/vizualization/square.js","../vizualization/circle":"src/vizualization/circle.js"}],"src/graph/graphEdge.js":[function(require,module,exports) {
+},{"../linked-list/linkedlist":"src/linked-list/linkedlist.js","../utils":"src/utils.js","../vizualization/shapes":"src/vizualization/shapes.js"}],"src/graph/graphEdge.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1483,11 +1542,12 @@ var _graphviz = require("./graphviz");
 var canvas = document.getElementById('graph');
 var context = canvas.getContext('2d');
 var gviz = new _graphviz.GraphViz(context);
-var pr_node = gviz.addNode('A', 'Const (X)');
+var pr_node = gviz.addNode('A', 'Const (X)', null, 'circle');
 var sc_node = gviz.addNode('B', 'Const (Z)', pr_node);
-var th_node = gviz.addNode('C', 'Cont (U)');
+var th_node = gviz.addNode('C', 'Cont (U)'); // gviz.addNode('D', 'Const (D)', th_node, 'circle');
+
 gviz.addEdge(pr_node, sc_node);
-gviz.addEdge(sc_node, th_node); // gviz.addEdge(pr_node, th_node);
+gviz.addEdge(sc_node, th_node); // gviz.addEdge(sc_node, 'D');
 },{"./graphviz":"src/graphviz.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
